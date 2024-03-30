@@ -1,0 +1,14 @@
+---
+title: "Programming assigment 3"
+format: gfm
+date: last-modified
+date-format: iso
+---
+
+##  Answers to questions:
+
+a\. This section is calculating the formants in different parts of the vowel segment. The percentages increment from the start point of the segment to calculate F1 and F2 showing values for the specific length of the duration in each percentage.
+
+b\. First, we tell Praat where to save the values of the formants and where to find the files it needs to analyze. The scripts creates sound files and gives them the name of tier 1, then it measures the F1 and F2 trajectories with the different percentages, and from tier 3, it gets the name of the language to put into the csv. file with all the information obtained from the looping process with each sound file.
+
+c\. Segmenting is different here in the tier 3 with language, in the past we used to have it to calculate midpoint values of the vowel. Now, we used tier 2 instead, which might be more advantageous because it allowes to calculate different portions of the formants, which I think it is more specific than in the previous assignment because in the previous one the only number obtained was based on personal appreciation.
