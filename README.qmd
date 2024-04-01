@@ -7,8 +7,56 @@ date-format: iso
 
 ##  Answers to questions:
 
-a\. This section is calculating the formants in different parts of the vowel segment. The percentages increment from the start point of the segment to calculate F1 and F2 showing values for the specific length of the duration in each percentage.
+a\. This section is calculating the formants in different parts of the vowel segment. The percentages increment from the start point of the segment to calculate F1 and F2 showing values for the specific portion according to each percentage.
 
-b\. First, we tell Praat where to save the values of the formants and where to find the files it needs to analyze. The scripts creates sound files and gives them the name of tier 1, then it measures the F1 and F2 trajectories with the different percentages, and from tier 3, it gets the name of the language to put into the csv. file with all the information obtained from the looping process with each sound file.
+b\. The first part tells praat where to  where to find the files to analyze and where to save the data. It creates a file where all the information extracted needs to go. In the second part,
+the script, it gets the the name from tier 1 to put on the csv table. Then, it goes to tier 2 to measures the F1 and F2 trajectories with the different percentages, and from tier 3, it gets the name of the language to put into the csv. Lastly, the Looping process happens with each sound file and the information is transferred into the data file. 
 
-c\. Segmenting is different here in the tier 3 with language, in the past we used to have it to calculate midpoint values of the vowel. Now, we used tier 2 instead, which might be more advantageous because it allowes to calculate different portions of the formants, which I think it is more specific than in the previous assignment because in the previous one the only number obtained was based on personal appreciation.
+c\. In the past, we used tier 3 to mark the midpoint to calculate formant values of the vowel. Now, we used tier 2 instead, which might be more advantageous because with this script we can calculate different portions of the formants. I think it is more specific than using the midpoint in the previous assignment because we relied on visual perception, and now the the different values allow to obtain an average we might be more accurate. 
+
+
+```{r}
+library(tidyverse)
+```
+```{r}
+data <- read.csv("/Users/jorgevargasmutizabal/Desktop/pa_3/data/vowel_data.csv")
+glimpse (data)
+```
+```{r}
+data %>%
+  group_by(id) %>%
+  summarize(avg_f1_cent = mean(f1_cent), 
+            sd_f1_cent = sd(f1_cent), 
+            avg_f2_cent = mean(f2_cent),
+            sd_f2_cent = sd(f2_cent),
+            avg_tl = mean(tl),
+            sd_tl = sd(tl))
+```
+```{r}
+data %>%
+  ggplot(
+    aes(x = language, y = tl, fill = vowel)) +
+  geom_boxplot() +
+  labs(x = "Language", y = "Trajectory Length", fill = "Vowel") +
+ggtitle("Trajectory Length as a function of Vowel and Language")
+```
+
+```{r}
+data %>%
+  ggplot(
+    aes(x = language, y = f1_cent, fill = vowel)) +
+  geom_boxplot() +
+  labs(x = "Language", y = "Trajectory Length", fill = "Vowel") +
+ggtitle("F1 as a function of vowel and language")
+```
+
+
+```{r}
+data %>%
+  ggplot(
+    aes(x = language, y = f2_cent, fill = vowel)) +
+  geom_boxplot() +
+  labs(x = "Language", y = "Trajectory Length", fill = "Vowel") +
+ggtitle("F2 as a function of vowel and language")
+```
+
